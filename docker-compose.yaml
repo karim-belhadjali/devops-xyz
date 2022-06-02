@@ -1,0 +1,26 @@
+version: '3.4'
+services:
+  timesheet:
+    image: karimbelhadjali/timesheet
+    hostname: timesheet
+    expose:
+      - "8090"
+    restart: on-failure:3
+    networks: 
+      - timesheet
+    ports:
+      - "8090:8090"
+    depends_on:
+      - mysql
+  mysql:
+    image: mysql:8.0.28
+    hostname: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: devops
+    ports:
+      - "3307:3306"
+    networks: 
+      - timesheet
+networks: 
+  timesheet: 
